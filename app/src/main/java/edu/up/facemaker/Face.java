@@ -22,11 +22,23 @@ import 	java.util.HexFormat;
 public class Face {
 
     //These are the instance variables for the Face Class
-    private int skinColor;
-    private int eyeColor;
-    private int hairColor;
+    public int skinColor;
+    public int eyeColor;
+    public int hairColor;
     //Identifies which hair style the face has.
-    private int hairStyle;
+    public int hairStyle;
+
+    private int rSkinColor;
+    private int gSkinColor;
+    private int bSkinColor;
+
+    private int rHairColor;
+    private int gHairColor;
+    private int bHairColor;
+
+    private int rEyeColor;
+    private int gEyeColor;
+    private int bEyeColor;
 
     FaceMakerModel model;
 
@@ -40,13 +52,26 @@ public class Face {
         //Hairstyles have a current max of three hairstyles to choose from. This may change
         randomize();
         this.model = model;
+        setter();
     }
 
     //randomizes the number between 0 and the number passed in.
     public void randomize(){
-        skinColor = rng.nextInt(0x00FFFFFF) + 0xFF000000;
-        eyeColor = rng.nextInt(0x00FFFFFF) + 0xFF000000;
-        hairColor = rng.nextInt(0x00FFFFFF) + 0xFF000000;
+        rSkinColor = rng.nextInt(255);
+        gSkinColor = rng.nextInt(255);
+        bSkinColor = rng.nextInt(255);
+        skinColor = fromHexDigits(toHex(rSkinColor, gSkinColor, bSkinColor));
+
+        rEyeColor = rng.nextInt(255);
+        gEyeColor = rng.nextInt(255);
+        bEyeColor = rng.nextInt(255);
+        eyeColor = fromHexDigits(toHex(rEyeColor, gEyeColor, bEyeColor));
+
+
+        rHairColor = rng.nextInt(255);
+        gHairColor = rng.nextInt(255);
+        bHairColor = rng.nextInt(255);
+        hairColor = fromHexDigits(toHex(rHairColor, gHairColor, bHairColor));
         hairStyle = rng.nextInt(3);
     }
 
@@ -89,30 +114,40 @@ public class Face {
 
     //Credit later, from:https://stackoverflow.com/questions/3607858/convert-a-rgb-color-value-to-a-hexadecimal-string THANK YOU :clasped_hands:
     public void addRGBvalues(int red, int green, int blue){
-        String hex = String.format("FF%02x%02x%02x", red, green, blue);
+        String hex = toHex(red, green, blue);
         int hexInt = fromHexDigits(hex);
 
         if(model.currentFeature == R.id.hairRadioButton){
             hairColor = hexInt;
-            model.hairRedValue = red;
-            model.hairGreenValue = green;
-            model.hairBlueValue = blue;
         }
         if(model.currentFeature == R.id.eyesRadioButton){
             eyeColor = hexInt;
-            model.eyeRedValue = red;
-            model.eyeGreenValue = green;
-            model.eyeBlueValue = blue;
         }
         if(model.currentFeature == R.id.skinRadioButton){
             skinColor = hexInt;
-            model.skinRedValue = red;
-            model.skinGreenValue = green;
-            model.skinBlueValue = blue;
         }
     }
 
     public void randomizeSetter(){
         model.hairStyle = hairStyle;
+        setter();
+    }
+
+    public void setter(){
+        this.model.hairRedValue = rHairColor;
+        this.model.hairGreenValue = gHairColor;
+        this.model.hairBlueValue = bHairColor;
+
+        this.model.eyeRedValue = rEyeColor;
+        this.model.eyeGreenValue = gEyeColor;
+        this.model.eyeBlueValue = bEyeColor;
+
+        this.model.skinRedValue = rSkinColor;
+        this.model.skinGreenValue = gSkinColor;
+        this.model.skinBlueValue = bSkinColor;
+    }
+
+    public String toHex(int red, int green, int blue){
+        return String.format("FF%02x%02x%02x", red, green, blue);
     }
 }

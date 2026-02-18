@@ -43,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
         _drawView.setGreenText(findViewById(R.id.greenValue));
         _drawView.setBlueText(findViewById(R.id.blueValue));
 
+        _drawView.setRedBar(findViewById(R.id.redBar));
+        _drawView.setGreenBar(findViewById(R.id.greenBar));
+        _drawView.setBlueBar(findViewById(R.id.blueBar));
+
+        _drawView.setSpinner(hairStylesSpinner);
+
         _drawView.setFace(face);
 
         //create the controller and pass the model in
@@ -50,16 +56,13 @@ public class MainActivity extends AppCompatActivity {
 
         SeekBar redBar = findViewById(R.id.redBar);
         redBar.setOnSeekBarChangeListener(ctrl);
-        ctrl.setRedBar(redBar);
 
 
         SeekBar greenBar = findViewById(R.id.greenBar);
         greenBar.setOnSeekBarChangeListener(ctrl);
-        ctrl.setGreenBar(greenBar);
 
         SeekBar blueBar = findViewById(R.id.blueBar);
         blueBar.setOnSeekBarChangeListener(ctrl);
-        ctrl.setBluebar(blueBar);
 
         Button randButton = findViewById(R.id.randomFaceButton);
         randButton.setOnClickListener(ctrl);
@@ -67,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         RadioGroup featureGroup = findViewById(R.id.radioGroup);
         featureGroup.setOnCheckedChangeListener(ctrl);
 
-        Spinner hairStyleSpinner = findViewById(R.id.hairStylesSpinner);
-        hairStyleSpinner.setOnItemSelectedListener(ctrl);
-        }
+        hairStylesSpinner.setOnItemSelectedListener(ctrl);
     }
+}

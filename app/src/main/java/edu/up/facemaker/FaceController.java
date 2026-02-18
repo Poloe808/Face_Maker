@@ -17,33 +17,63 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, AdapterV
     SeekBar redbar;
     SeekBar greenbar;
     SeekBar bluebar;
+    Spinner spinner;
 
-    public FaceController(Face face, drawView view){
+    public FaceController(Face face, drawView view) {
         currentFace = face;
         this.view = view;
         model = face.getModel();
+
+
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (seekBar.getId() == R.id.redBar){
+        if (seekBar.getId() == R.id.redBar) {
             model.seekRedValue = progress;
-            view.invalidate();
+            if (model.currentFeature == R.id.hairRadioButton) {
+                model.hairRedValue = progress;
+            }
+            if (model.currentFeature == R.id.eyesRadioButton) {
+                model.eyeRedValue = progress;
+            }
+            if (model.currentFeature == R.id.skinRadioButton) {
+                model.skinRedValue = progress;
+            }
         }
-        if (seekBar.getId() == R.id.greenBar){
+        if (seekBar.getId() == R.id.greenBar) {
             model.seekGreenValue = progress;
-            view.invalidate();
+            if (model.currentFeature == R.id.hairRadioButton) {
+                model.hairGreenValue = progress;
+            }
+            if (model.currentFeature == R.id.eyesRadioButton) {
+                model.eyeGreenValue = progress;
+            }
+            if (model.currentFeature == R.id.skinRadioButton) {
+                model.skinGreenValue = progress;
+            }
         }
-        if (seekBar.getId() == R.id.blueBar){
+        if (seekBar.getId() == R.id.blueBar) {
             model.seekBlueValue = progress;
-            view.invalidate();
+            if (model.currentFeature == R.id.hairRadioButton) {
+                model.hairBlueValue = progress;
+            }
+            if (model.currentFeature == R.id.eyesRadioButton) {
+                model.eyeBlueValue = progress;
+            }
+            if (model.currentFeature == R.id.skinRadioButton) {
+                model.skinBlueValue = progress;
+            }
         }
         currentFace.addRGBvalues(model.seekRedValue, model.seekGreenValue, model.seekBlueValue);
+        view.invalidate();
     }
+
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
 
     }
+
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
@@ -51,14 +81,15 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, AdapterV
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (parent.getId() == R.id.radioGroup){
+        if (parent.getId() == R.id.radioGroup) {
             model.currentFeature = position;
         }
-        if (parent.getId() == R.id.hairStylesSpinner){
+        if (parent.getId() == R.id.hairStylesSpinner) {
             model.hairStyle = position;
         }
         this.view.invalidate();
     }
+
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         //..do nothing. :thumbsup:
@@ -68,42 +99,14 @@ public class FaceController implements SeekBar.OnSeekBarChangeListener, AdapterV
     public void onClick(View v) {
         currentFace.randomize();
         currentFace.randomizeSetter();
-        setProgressbars();
+        //setProgressbars();
         view.invalidate();
     }
 
     @Override
     public void onCheckedChanged(@NonNull RadioGroup group, int checkedId) {
         model.currentFeature = checkedId;
-        currentFace.addRGBvalues(model.seekRedValue, model.seekGreenValue, model.seekBlueValue);
+
         view.invalidate();
-    }
-
-    public void setRedBar(SeekBar r){
-        redbar = r;
-    }
-    public void setGreenBar(SeekBar r){
-        greenbar = r;
-    }
-    public void setBluebar(SeekBar r){
-        bluebar = r;
-    }
-
-    public void setProgressbars(){
-        if (model.currentFeature == R.id.hairRadioButton) {
-            redbar.setProgress(model.hairRedValue);
-            greenbar.setProgress(model.hairGreenValue);
-            bluebar.setProgress(model.hairBlueValue);
-        }
-        if (model.currentFeature == R.id.eyesRadioButton) {
-            redbar.setProgress(model.eyeRedValue);
-            greenbar.setProgress(model.eyeGreenValue);
-            bluebar.setProgress(model.eyeBlueValue);
-        }
-        if (model.currentFeature == R.id.skinRadioButton) {
-            redbar.setProgress(model.skinRedValue);
-            greenbar.setProgress(model.skinGreenValue);
-            bluebar.setProgress(model.skinBlueValue);
-        }
     }
 }
