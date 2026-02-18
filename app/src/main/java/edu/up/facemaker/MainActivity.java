@@ -21,7 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     //A set of hair styles for the spinner below
-    String[] hairStyles = {"Bowl Cut", "Pigtails", "Messy"};
+    String[] hairStyles = {"Bowl Cut", "Pigtails", "Broccoli Shaped"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,25 +39,35 @@ public class MainActivity extends AppCompatActivity {
         Face face = new Face(model);
         drawView _drawView = findViewById(R.id.faceDrawingSpace);
 
+        _drawView.setRedText(findViewById(R.id.redValue));
+        _drawView.setGreenText(findViewById(R.id.greenValue));
+        _drawView.setBlueText(findViewById(R.id.blueValue));
+
         _drawView.setFace(face);
 
         //create the controller and pass the model in
-        FaceController ctrl = new FaceController(face, findViewById(R.id.redValue),
-                            findViewById(R.id.greenValue), findViewById(R.id.blueValue), _drawView);
+        FaceController ctrl = new FaceController(face, _drawView);
 
         SeekBar redBar = findViewById(R.id.redBar);
         redBar.setOnSeekBarChangeListener(ctrl);
+        ctrl.setRedBar(redBar);
+
 
         SeekBar greenBar = findViewById(R.id.greenBar);
         greenBar.setOnSeekBarChangeListener(ctrl);
+        ctrl.setGreenBar(greenBar);
 
         SeekBar blueBar = findViewById(R.id.blueBar);
         blueBar.setOnSeekBarChangeListener(ctrl);
+        ctrl.setBluebar(blueBar);
 
         Button randButton = findViewById(R.id.randomFaceButton);
         randButton.setOnClickListener(ctrl);
 
         RadioGroup featureGroup = findViewById(R.id.radioGroup);
         featureGroup.setOnCheckedChangeListener(ctrl);
+
+        Spinner hairStyleSpinner = findViewById(R.id.hairStylesSpinner);
+        hairStyleSpinner.setOnItemSelectedListener(ctrl);
         }
     }

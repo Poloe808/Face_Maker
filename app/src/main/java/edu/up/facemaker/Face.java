@@ -53,22 +53,31 @@ public class Face {
     //Currently empty for the time being.
     public void onDraw(Canvas canvas){
         currentColor.setColor(hairColor);
-        canvas.drawCircle(500, 500, 200, currentColor);
-        currentColor.setColor(hairColor);
-        if (hairStyle == 0){
+        if (model.hairStyle == 0){
             //draw Bowl Cut
             canvas.drawText("bowl", 10, 10, currentColor);
+            canvas.drawCircle(500, 550, 300, currentColor);
+            currentColor.setColor(0xFFe6faf7);
+            canvas.drawRect(200, 600, 800, 900, currentColor);
         }
-        else if (hairStyle == 1)
+        else if (model.hairStyle == 1)
         {
             //draw pigtails
             canvas.drawText("pigtails", 10, 10, currentColor);
+            canvas.drawRect(250, 400, 350, 700, currentColor);
+            canvas.drawRect(650, 400, 750, 700, currentColor);
         }
-        else if (hairStyle == 2)
+        else if (model.hairStyle == 2)
         {
-            //draw messy
-            canvas.drawText("messy", 10, 10, currentColor);
+            //draw treeshaped hair
+            canvas.drawText("brocli shaped", 10, 10, currentColor);
+            canvas.drawCircle(300, 450, 100, currentColor);
+            canvas.drawCircle(650, 300, 200, currentColor);
+            canvas.drawCircle(700, 500, 150, currentColor);
+            canvas.drawCircle(400, 300, 200, currentColor);
         }
+        currentColor.setColor(skinColor);
+        canvas.drawCircle(500, 500, 200, currentColor);
         currentColor.setColor(eyeColor);
         canvas.drawCircle(400, 450, 30, currentColor);
         canvas.drawCircle(600, 450, 30, currentColor);
@@ -83,14 +92,27 @@ public class Face {
         String hex = String.format("FF%02x%02x%02x", red, green, blue);
         int hexInt = fromHexDigits(hex);
 
-        if(model.currentFeature == 0){
+        if(model.currentFeature == R.id.hairRadioButton){
             hairColor = hexInt;
+            model.hairRedValue = red;
+            model.hairGreenValue = green;
+            model.hairBlueValue = blue;
         }
-        if(model.currentFeature == 1){
+        if(model.currentFeature == R.id.eyesRadioButton){
             eyeColor = hexInt;
+            model.eyeRedValue = red;
+            model.eyeGreenValue = green;
+            model.eyeBlueValue = blue;
         }
-        if(model.currentFeature == 2){
+        if(model.currentFeature == R.id.skinRadioButton){
             skinColor = hexInt;
+            model.skinRedValue = red;
+            model.skinGreenValue = green;
+            model.skinBlueValue = blue;
         }
+    }
+
+    public void randomizeSetter(){
+        model.hairStyle = hairStyle;
     }
 }

@@ -11,11 +11,16 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
+import android.widget.TextView;
 
 import java.util.jar.Attributes;
 
 public class drawView extends SurfaceView {
     private Face face;
+    private TextView redText;
+    private TextView greenText;
+    private TextView blueText;
+
 
     public drawView(Context context, AttributeSet attrs){
         //uses all the stuff from the SurfaceView class constructor
@@ -30,6 +35,9 @@ public class drawView extends SurfaceView {
     }
     public void onDraw(Canvas canvas) {
         face.onDraw(canvas);
+        redText.setText("" + face.model.seekRedValue);
+        greenText.setText("" + face.model.seekGreenValue);
+        blueText.setText("" + face.model.seekBlueValue);
     }
 
     public void setFace(Face face){
@@ -39,4 +47,16 @@ public class drawView extends SurfaceView {
     public Face getFace(){
         return face;
     }
+
+    public void setRedText(TextView v){
+        redText = v;
+    }
+
+    public void setGreenText(TextView v) {
+        greenText = v;
+    }
+    public void setBlueText(TextView v){
+        blueText = v;
+    }
+
 }
