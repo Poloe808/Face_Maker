@@ -38,16 +38,16 @@
 
         <!-- This linear layout contains the surface View, which will be showcasing the face. -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="6">
+            android:layout_weight="6"
+            android:clipChildren="true"
+            android:orientation="vertical">
 
-            <SurfaceView
-                android:id="@+id/faceView"
+            <edu.up.facemaker.drawView
+                android:id="@+id/faceDrawingSpace"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <!-- This is the linear layout that contains the radio buttons and Random Button-->
@@ -68,6 +68,7 @@
                 android:textSize="30sp" />
 
             <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checkedButton="@id/eyesRadioButton"
